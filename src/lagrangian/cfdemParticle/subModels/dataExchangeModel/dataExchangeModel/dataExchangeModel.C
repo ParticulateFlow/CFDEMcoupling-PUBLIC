@@ -63,18 +63,17 @@ void Foam::dataExchangeModel::allocateArray
     int length
 ) const
 {
-    // this model should only be used for VTK (and File exchange model)
-    //if(particleCloud_.dataExchangeM().type() != "oneWayVTK")
-    //    FatalError<< "dataExchangeModel::allocateArray should not be used with your dataExchangeModel" << abort(FatalError);
-    
     // allocate and init double array
+    destroy(array, -1);
+    double *data = new double[width*length];
+    std::fill_n(data, width*length, initVal);
     array = new double*[length];
+
+    int n = 0;
     for (int i=0; i<length; i++)
     {
-        array[i] = new double [width];
-
-        // init array
-        for(int j=0; j<width;j++) array[i][j] = initVal;
+        array[i] = &data[n];
+        n += width;
     }
 }
 
@@ -87,17 +86,17 @@ void Foam::dataExchangeModel::allocateArray
 ) const
 {
     int len=0;
-    if(strcmp(length,"nparticles")==0) len = particleCloud_.numberOfParticles();
+    if (strcmp(length,"nparticles")==0) len = particleCloud_.numberOfParticles();
     else if (strcmp(length,"nbodies")==0) len = particleCloud_.numberOfClumps();
     else FatalError<<"call allocateArray with length, nparticles or nbodies!\n" << abort(FatalError);
     allocateArray(array,initVal,width,len);
 }
-void Foam::dataExchangeModel::destroy(double** array,int len) const
+
+void Foam::dataExchangeModel::destroy(double** array,int /*len*/) const
 {
     if (array == NULL) return;
 
-    for ( int i = 0; i < len; i++ )
-        delete [] array[i];  
+    delete [] array[0];
 
     delete [] array;
 }
@@ -112,18 +111,17 @@ void Foam::dataExchangeModel::allocateArray
     int length
 ) const
 {
-    // this model should only be used for VTK (and File exchange model)
-    //if(particleCloud_.dataExchangeM().type() != "oneWayVTK")
-    //    FatalError<< "dataExchangeModel::allocateArray should not be used with your dataExchangeModel" << abort(FatalError);
-
-    // allocate and init double array
+    // allocate and init int array
+    destroy(array, -1);
+    int *data = new int[width*length];
+    std::fill_n(data, width*length, initVal);
     array = new int*[length];
+
+    int n = 0;
     for (int i=0; i<length; i++)
     {
-        array[i] = new int [width];
-
-        // init array
-        for(int j=0; j<width;j++) array[i][j] = initVal;
+        array[i] = &data[n];
+        n += width;
     }
 }
 
@@ -136,17 +134,17 @@ void Foam::dataExchangeModel::allocateArray
 ) const
 {
     int len=0;
-    if(strcmp(length,"nparticles")==0) len = particleCloud_.numberOfParticles();
+    if (strcmp(length,"nparticles")==0) len = particleCloud_.numberOfParticles();
     else if (strcmp(length,"nbodies")==0) len = particleCloud_.numberOfClumps();
     else FatalError<<"call allocateArray with length, nparticles or nbodies!\n" << abort(FatalError);
     allocateArray(array,initVal,width,len);
 }
-void Foam::dataExchangeModel::destroy(int** array,int len) const
+
+void Foam::dataExchangeModel::destroy(int** array,int /*len*/) const
 {
     if (array == NULL) return;
 
-    for ( int i = 0; i < len; i++ )
-        delete [] array[i];  
+    delete [] array[0];
 
     delete [] array;
 }
@@ -161,18 +159,14 @@ void Foam::dataExchangeModel::allocateArray
     int length
 ) const
 {
-    // this model should only be used for VTK (and File exchange model)
-    //if(particleCloud_.dataExchangeM().type() != "oneWayVTK")
-    //    FatalError<< "dataExchangeModel::allocateArray should not be used with your dataExchangeModel" << abort(FatalError);
-
+    destroy(array);
     // allocate and init int array
     array = new int[length];
-    for (int i=0; i<length; i++)
-        array[i] = initVal;
+    std::fill_n(array, length, initVal);
 }
+
 void Foam::dataExchangeModel::destroy(int* array) const
 {
-    if (array == NULL) return;
     delete [] array;
 }
 //====
@@ -186,18 +180,14 @@ void Foam::dataExchangeModel::allocateArray
     int length
 ) const
 {
-    // this model should only be used for VTK (and File exchange model)
-    //if(particleCloud_.dataExchangeM().type() != "oneWayVTK")
-    //    FatalError<< "dataExchangeModel::allocateArray should not be used with your dataExchangeModel" << abort(FatalError);
-
+    destroy(array);
     // allocate and init double array
     array = new double[length];
-    for (int i=0; i<length; i++)
-        array[i] = initVal;
+    std::fill_n(array, length, initVal);
 }
+
 void Foam::dataExchangeModel::destroy(double* array) const
 {
-    if (array == NULL) return;
     delete [] array;
 }
 //====
@@ -220,10 +210,11 @@ scalar Foam::dataExchangeModel::timeStepFraction() const
     //scalar DEMtime = DEMts_ * couplingInterval_;
     //scalar frac = ( ( particleCloud_.mesh().time().value()-particleCloud_.mesh().time().startTime().value() ) - (couplingStep_) * DEMtime) / DEMtime; //Chr 05.03.2013
     scalar frac = ( particleCloud_.mesh().time().value()-particleCloud_.mesh().time().startTime().value() - couplingStep_ * couplingTime() ) / couplingTime();
-    if (frac<1e-4) frac = 1;
+    if (frac < 1e-4) frac = 1.;
 
     return frac;
 }
+
 int Foam::dataExchangeModel::getNumberOfParticles() const
 {
     FatalError << "ask for nr of particles - which is not supported for this dataExchange model" << abort(FatalError);
@@ -235,6 +226,7 @@ int Foam::dataExchangeModel::getNumberOfClumps() const
     FatalError << "ask for nr of clumps - which is not supported for this dataExchange model" << abort(FatalError);
     return -1;
 }
+
 int Foam::dataExchangeModel::getNumberOfTypes() const
 {
     FatalError << "ask for nr of types - which is not supported for this dataExchange model" << abort(FatalError);
