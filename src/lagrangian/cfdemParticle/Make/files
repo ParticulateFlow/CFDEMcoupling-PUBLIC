@@ -53,6 +53,7 @@ $(forceSubModels)/ImEx/ImEx.C
 $(probeModels)/probeModel/probeModel.C
 $(probeModels)/probeModel/newProbeModel.C
 $(probeModels)/noProbe/noProbe.C
+$(probeModels)/particleProbe/particleProbe.C
 
 $(IOModels)/IOModel/IOModel.C
 $(IOModels)/IOModel/newIOModel.C
