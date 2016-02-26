@@ -56,15 +56,15 @@ cfdemCloudIB::cfdemCloudIB
 :
     cfdemCloud(mesh),
     angularVelocities_(NULL),
-    remoteScalarInterp_(NULL),
-    remoteVectorInterp_(NULL),
-    displs_(NULL),
     pRefCell_(readLabel(mesh_.solutionDict().subDict("PISO").lookup("pRefCell"))),
     pRefValue_(readScalar(mesh_.solutionDict().subDict("PISO").lookup("pRefValue"))),
     haveEvolvedOnce_(false),
     skipLagrangeToEulerMapping_(false),
     useHFDIBM_(false),
-    checkPeriodicCells_(false)
+    checkPeriodicCells_(false),
+    remoteScalarInterp_(NULL),
+    remoteVectorInterp_(NULL),
+    displs_(NULL)
 {
 
     if(this->couplingProperties().found("skipLagrangeToEulerMapping"))
