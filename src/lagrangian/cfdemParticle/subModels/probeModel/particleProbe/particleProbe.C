@@ -61,7 +61,7 @@ particleProbe::particleProbe
     const dictionary& dict,
     cfdemCloud& sm,
     word   typeName,
-    char*  logFileName
+    const char*  logFileName
 )
 :
     probeModel(dict,sm,typeName,logFileName),
@@ -132,8 +132,8 @@ void particleProbe::initialize(word typeName, word  logFileName) const
   // init environment
   //propsDict_ = particleCloud_.couplingProperties().subDict(typeName + "Props");
   name_ = typeName;
-  const char* fileNameOut_ = wordToChar(logFileName);
-  
+  const char* fileNameOut_ = logFileName.c_str();
+
   if(verboseToFile_)
   {
 
