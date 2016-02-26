@@ -464,8 +464,8 @@ void Foam::clockModel::getRAMUsage() const
 		
 		}
 	}
-	double SwapMB = (double)SwapMem/1024.0; //kB -> MB
-	double RssMB = (double)RssMem/1024.0;
+	double SwapMB = SwapMem/1024.0; //kB -> MB
+	double RssMB = RssMem/1024.0;
 
 	inFile.close();
 
