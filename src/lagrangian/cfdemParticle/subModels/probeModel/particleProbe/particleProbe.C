@@ -147,8 +147,7 @@ void particleProbe::initialize(const word& typeName, const word& logFileName) co
     rank_=myrank_;
 
     //open a separate file for each processor
-    char* filecurrent_;
-    filecurrent_= new char[strlen(fileNameOut_) + 4]; //reserve 4 chars for processor name
+    char* filecurrent_ = new char[strlen(fileNameOut_) + 4]; //reserve 4 chars for processor name
     if (myrank_ < numprocs_)  
              sprintf(filecurrent_,"%s%s%d", fileNameOut_, ".", myrank_);
     else  //open one file for proc 0
@@ -183,6 +182,7 @@ void particleProbe::initialize(const word& typeName, const word& logFileName) co
     // instead of setSize
     sPtrList_.setSize(sPtrList_.size()+1, sPtr);
 
+    delete [] filecurrent_;
     //Clear the containers for the fields to be probed
     scalarFields_.clear();
     vectorFields_.clear();
