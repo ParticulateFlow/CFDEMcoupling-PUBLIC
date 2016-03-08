@@ -140,18 +140,11 @@ void particleProbe::initialize(const word& typeName, const word& logFileName) co
     Info << "Will sample these particle IDs: " << particleIDsToSample_ << " every " <<  printEvery_ <<  endl;
 
     //initialize the output files
-    int myrank_(-1);
-    int numprocs_(-1);
-    MPI_Comm_rank(MPI_COMM_WORLD,&myrank_);
-    MPI_Comm_size(MPI_COMM_WORLD, &numprocs_);
-    rank_=myrank_;
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank_);
 
     //open a separate file for each processor
     char* filecurrent_ = new char[strlen(fileNameOut_) + 4]; //reserve 4 chars for processor name
-    if (myrank_ < numprocs_)  
-             sprintf(filecurrent_,"%s%s%d", fileNameOut_, ".", myrank_);
-    else  //open one file for proc 0
-            sprintf(filecurrent_,"%s", fileNameOut_); 
+    sprintf(filecurrent_,"%s%s%d", fileNameOut_, ".", rank_);
 
      Info << "particleProbe for model " <<  name_ << " will write to file " << filecurrent_ << endl;
 
