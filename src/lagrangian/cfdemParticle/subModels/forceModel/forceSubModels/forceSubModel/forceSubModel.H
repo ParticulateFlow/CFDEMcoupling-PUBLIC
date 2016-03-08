@@ -179,7 +179,7 @@ public:
 
         inline const wordList& switchesNameList() const { return switchesNameList_;};
 
-        void setSwitchesList(label i, bool v) const { switchesList_[i] = label(v);};
+        void setSwitchesList(label i, bool v) const { switchesList_[i] = v;};
 
         void setSwitches(label i, Switch v) const { switches_[i] = v;};
 
