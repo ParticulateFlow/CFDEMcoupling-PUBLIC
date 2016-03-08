@@ -152,8 +152,8 @@ void particleProbe::initialize(const word& typeName, const word& logFileName) co
              sprintf(filecurrent_,"%s%s%d", fileNameOut_, ".", myrank_);
     else  //open one file for proc 0
             sprintf(filecurrent_,"%s", fileNameOut_); 
-     word file_(filecurrent_);
-     Info << "particleProbe for model " <<  name_ << " will write to file " << file_ << endl;
+
+     Info << "particleProbe for model " <<  name_ << " will write to file " << filecurrent_ << endl;
 
       //generate the file streams
       fileName probeSubDir = dirName_;
@@ -177,7 +177,7 @@ void particleProbe::initialize(const word& typeName, const word& logFileName) co
 
     //manage files and OFstreams
     mkDir(probeDir_);
-    sPtr = new OFstream(probeDir_/file_);
+    sPtr = new OFstream(probeDir_/filecurrent_);
     // Note: for other than ext one could use xx.append(x)
     // instead of setSize
     sPtrList_.setSize(sPtrList_.size()+1, sPtr);
