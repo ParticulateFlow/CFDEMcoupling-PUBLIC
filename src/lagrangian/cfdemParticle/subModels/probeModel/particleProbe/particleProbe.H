@@ -123,8 +123,8 @@ public:
         (
             const dictionary& dict,
             cfdemCloud& sm,
-            word   typeName,
-            const char*  logFileName
+            const word& typeName,
+            const char* logFileName
         );
 
     // Destructor
@@ -133,7 +133,7 @@ public:
 
     // Member Functions
     void updateProbes(int index, Field<scalar> sValues, Field<vector> vValues) const;
-    void initialize(word typeName, word logFileName) const;
+    void initialize(const word& typeName, const word& logFileName) const;
     void setOutputFile() const;
     void writeHeader() const;
     void writeProbe(int index, Field<scalar> sValues, Field<vector> vValues) const;

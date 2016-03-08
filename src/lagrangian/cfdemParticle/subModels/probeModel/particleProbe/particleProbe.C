@@ -60,8 +60,8 @@ particleProbe::particleProbe
 (
     const dictionary& dict,
     cfdemCloud& sm,
-    word   typeName,
-    const char*  logFileName
+    const word& typeName,
+    const char* logFileName
 )
 :
     probeModel(dict,sm,typeName,logFileName),
@@ -121,7 +121,7 @@ void particleProbe::setOutputFile() const
 }
 
 
-void particleProbe::initialize(word typeName, word  logFileName) const
+void particleProbe::initialize(const word& typeName, const word& logFileName) const
 {
   //update the list of items to be sampled
   itemCounter_ += 1; 

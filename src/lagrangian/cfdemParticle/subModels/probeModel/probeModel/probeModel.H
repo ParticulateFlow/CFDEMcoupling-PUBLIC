@@ -97,8 +97,8 @@ public:
             (
                 const dictionary& dict,
                 cfdemCloud& sm,
-                word   typeName,
-                const char*  logFileName
+                const word& typeName,
+                const char* logFileName
             ),
             (dict,sm,typeName,logFileName)
         );
@@ -111,8 +111,8 @@ public:
         (
             const dictionary& dict,
             cfdemCloud& sm,
-            word   typeName,
-            const char*  logFileName
+            const word& typeName,
+            const char* logFileName
         );
 
 
@@ -127,13 +127,13 @@ public:
         (
             const dictionary& dict,
             cfdemCloud& sm,
-            word   typeName,
-            const char*  logFileName
+            const word& typeName,
+            const char* logFileName
         );
 
     // Member Functions
 
-    virtual void initialize(word typeName, word  logFileName) const {};
+    virtual void initialize(const word& typeName, const word& logFileName) const {};
     virtual void setOutputFile() const {};
     virtual void writeHeader() const {};
     virtual void writeProbe(int index, Field<scalar> sValues, Field<vector> vValues) const {};
