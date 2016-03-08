@@ -137,55 +137,55 @@ public:
         //function to set anisotropic drag components for DEM side only.
         void partToArrayAnisotropic(label&, vector&, const vector& dragEx=vector::zero) const;
 
-        //function to set anisotropic torque components for DEM side only. 
+        //function to set anisotropic torque components for DEM side only.
         void partToArrayAnisotropicTorque(label&, vector&, const vector& torqueTotal=vector::zero) const;
 
 
-        virtual void preParticleLoop(bool verbose=false) const {};
+        virtual void preParticleLoop(bool verbose=false) const {}
 
-        virtual void postParticleLoop(bool verbose=false) const {};
+        virtual void postParticleLoop(bool verbose=false) const {}
 
         virtual void explicitCorr(vector&, vector&, scalar&, vector&, const vector&, vector&, const vector&, bool,label index=100) const;
 
-        virtual void explicitCorrScalar(scalar&, scalar&, scalar&, 
+        virtual void explicitCorrScalar(scalar&, scalar&, scalar&,
                                         scalar&, const scalar&, scalar&, bool, label index=100) const;
 
-        virtual void update(scalar& deltaT,         label particleI,        label cellI, 
+        virtual void update(scalar& deltaT,         label particleI,        label cellI,
                             scalar& scalToUpdate1,  scalar&  scalToUpdate2, bool  verbose) const;
 
-        virtual void update(scalar& deltaT,         label particleI,        label cellI, 
-                            vector& vecToUpdate1,   vector&  vecToUpdate2, 
-                            scalar& scalToUpdate1,  scalar&  scalToUpdate2, 
+        virtual void update(scalar& deltaT,         label particleI,        label cellI,
+                            vector& vecToUpdate1,   vector&  vecToUpdate2,
+                            scalar& scalToUpdate1,  scalar&  scalToUpdate2,
                             bool  verbose) const;
 
         virtual void explicitLimit(vector&, vector&, scalar&) const;
 
     // Access
-        inline bool implForceDEM() const { return switches_[2]; };
+        inline bool implForceDEM() const { return switches_[2]; }
 
-        inline bool verbose() const      { return switches_[3]; };
+        inline bool verbose() const      { return switches_[3]; }
 
-        inline bool interpolation() const { return switches_[4]; };
+        inline bool interpolation() const { return switches_[4]; }
 
-        inline bool useFilteredDragModel() const { return switches_[5]; };
+        inline bool useFilteredDragModel() const { return switches_[5]; }
 
-        inline bool useParcelSizeDependentFilteredDrag() const { return switches_[6]; };
+        inline bool useParcelSizeDependentFilteredDrag() const { return switches_[6]; }
 
         virtual word myType() const=0;
 
-        inline forceModel& myForceM() const { return forceModel_;};
+        inline forceModel& myForceM() const { return forceModel_; }
 
-        inline const List<Switch>& switches() const { return switches_;};
+        inline const List<Switch>& switches() const { return switches_; }
 
-        inline const wordList& switchesNameList() const { return switchesNameList_;};
+        inline const wordList& switchesNameList() const { return switchesNameList_; }
 
-        void setSwitchesList(label i, bool v) const { switchesList_[i] = v;};
+        void setSwitchesList(label i, bool v) const { switchesList_[i] = v; }
 
-        void setSwitches(label i, Switch v) const { switches_[i] = v;};
+        void setSwitches(label i, Switch v) const { switches_[i] = v; }
 
         virtual void readSwitches() const;
 
-        const label& nrDefaultSwitches() const {return nrDefaultSwitches_;};
+        const label& nrDefaultSwitches() const { return nrDefaultSwitches_; }
 
         const volScalarField& nuField() const;
 
