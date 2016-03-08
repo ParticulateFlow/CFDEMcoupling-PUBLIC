@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
                 #if defined(version30)
                     while (piso.correct())
                 #else
-                    int nCorrSoph = nCorr + 5 * pow((1-particleCloud.dataExchangeM().timeStepFraction()),1);
+                    int nCorrSoph = nCorr + 5. * (1. - particleCloud.dataExchangeM().timeStepFraction());
                     for (int corr=0; corr<nCorrSoph; corr++)
                 #endif
                 {
