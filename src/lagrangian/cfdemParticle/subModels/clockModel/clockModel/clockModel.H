@@ -121,7 +121,7 @@ public:
     // Member Functions
 
 	    virtual void start(int pos) const;	                //start measurement with custom string identifier
-	    virtual void start(int pos,std::string identifier) const;   //start measurement with custom string identifier
+	    virtual void start(int pos,const std::string& identifier) const;   //start measurement with custom string identifier
 	    virtual void stop() const;				            //stop last started measurement
 	    virtual void stop(const std::string& identifier) const;    //stop last started measurement with check if identifier is equal
 	    virtual std::string eval() const;
