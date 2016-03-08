@@ -420,12 +420,12 @@ Foam::clockModel::clockModel
     startTime_(sm.mesh().time().startTime().value()+sm.mesh().time().deltaT().value()+SMALL),  // delay start of measurement by deltaT
     //startTime_(0),                                //no delay
     n_(30),
-    deltaT_(std::vector<clock_t> (n_)),
-    identifier_(std::vector<std::string> (n_)),
-    nOfRuns_(std::vector<int> (n_)),
-    level_(std::vector<short> (n_)),
+    deltaT_(n_),
+    identifier_(n_),
+    nOfRuns_(n_),
+    level_(n_),
     curLev_(0),
-    parent_(std::vector<int> (n_)),
+    parent_(n_),
     curParent_(0)
 {
 
